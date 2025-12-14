@@ -5,8 +5,8 @@
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/9.0.0/userguide/building_java_projects.html in the Gradle documentation.
  */
 
-group = "com.iljaproject"
-version = "1.0.0"
+group = "com.github.desprd.jscour"
+version = "0.1.0"
 
 plugins {
     // Apply the java-library plugin for API and implementation separation.
@@ -21,12 +21,6 @@ repositories {
 dependencies {
     // Use JUnit test framework.
     testImplementation(libs.junit)
-
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api(libs.commons.math3)
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation(libs.guava)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
