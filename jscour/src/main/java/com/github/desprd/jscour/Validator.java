@@ -1,18 +1,17 @@
 package com.github.desprd.jscour;
 
-public final class Validator {
+import java.util.List;
 
-    private final boolean blockBadWords;
-    private final boolean englishOnly;
-    private final int charactersLimit;
 
-    Validator(boolean blockBadWords, boolean englishOnly, int charactersLimit) {
-        this.blockBadWords = blockBadWords;
-        this.englishOnly = englishOnly;
-        this.charactersLimit = charactersLimit;
+public final class Validator{
+
+    private final List<ValidationRule> rules;
+
+    Validator(List<ValidationRule> rules) {
+        this.rules = List.copyOf(rules);
     }
 
-    public void validate(String word) {
-
+    public ValidationResult validate(String word) {
+        return null;
     }
 }

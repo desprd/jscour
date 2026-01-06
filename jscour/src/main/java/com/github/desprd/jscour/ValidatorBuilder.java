@@ -1,34 +1,33 @@
 package com.github.desprd.jscour;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class ValidatorBuilder {
 
-    private boolean blockBadWords = true;
-    private boolean englishOnly = true;
-    private int charactersLimit = Integer.MAX_VALUE;
+    private final List<ValidationRule> rules = new ArrayList<>();
 
     public static ValidatorBuilder builder() {
         return new ValidatorBuilder();
     }
 
-    public ValidatorBuilder enableBlockingBadWords(boolean enable) {
-        this.blockBadWords = enable;
+    public ValidatorBuilder blockOffensiveWords() {
+        rules.add(new BlockOffensiveWordsRule());
         return this;
     }
 
-    public ValidatorBuilder enableEnglishOnly(boolean enable) {
-        this.englishOnly = enable;
+    public ValidatorBuilder englishOnly() {
+        rules.add(new EnglishOnlyRule());
         return this;
     }
 
     public ValidatorBuilder charactersLimit(int limit) {
-        this.charactersLimit = limit;
+        rules.add(new CharactersLimitRule());
         return this;
     }
 
     public Validator build() {
-        return new Validator(blockBadWords, englishOnly, charactersLimit);
+        return new Validator(rules);
     }
-
-
 
 }

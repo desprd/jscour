@@ -21,6 +21,7 @@ repositories {
 dependencies {
     // Use JUnit test framework.
     testImplementation(libs.junit)
+    compileOnly("org.jspecify:jspecify:1.0.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
