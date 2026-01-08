@@ -1,8 +1,18 @@
 package com.github.desprd.jscour;
 
-public class CharactersLimitRule implements ValidationRule{
-    @Override
-    public ValidationResult validate(String input) {
-        return null;
+final class CharactersLimitRule extends ValidationRule{
+
+    private final int limit;
+
+    CharactersLimitRule(ValidationFailureReason failureMessage, int limit) {
+        super(failureMessage);
+        this.limit = limit;
     }
+
+    @Override
+    boolean isValid(String input) {
+        return input.length() <= limit;
+    }
+
+
 }

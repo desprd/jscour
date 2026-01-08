@@ -1,8 +1,13 @@
 package com.github.desprd.jscour;
 
-final class BlockOffensiveWordsRule implements ValidationRule{
+final class BlockOffensiveWordsRule extends ValidationRule{
+
+    BlockOffensiveWordsRule(ValidationFailureReason failureMessage) {
+        super(failureMessage);
+    }
+
     @Override
-    public ValidationResult validate(String input) {
-        return null;
+    boolean isValid(String input) {
+        return true;
     }
 }

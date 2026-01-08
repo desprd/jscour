@@ -1,8 +1,13 @@
 package com.github.desprd.jscour;
 
-public class EnglishOnlyRule implements ValidationRule{
+final class EnglishOnlyRule extends ValidationRule{
+
+    EnglishOnlyRule(ValidationFailureReason failureMessage) {
+        super(failureMessage);
+    }
+
     @Override
-    public ValidationResult validate(String input) {
-        return null;
+    boolean isValid(String input) {
+        return true;
     }
 }

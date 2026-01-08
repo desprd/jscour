@@ -4,5 +4,6 @@ public enum ValidationFailureReason {
     EMPTY_INPUT,
     TOO_LONG,
     NON_ENGLISH_CHARACTERS,
-    OFFENSIVE_WORD
+    OFFENSIVE_WORD,
+    NOT_A_SINGLE_WORD
 }

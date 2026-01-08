@@ -1,5 +1,16 @@
 package com.github.desprd.jscour;
 
-interface ValidationRule {
-    ValidationResult validate(String input);
+abstract class ValidationRule {
+
+    private final ValidationFailureReason failureMessage;
+
+    ValidationRule(ValidationFailureReason failureMessage) {
+        this.failureMessage = failureMessage;
+    }
+
+    abstract boolean isValid(String input);
+
+    ValidationFailureReason getFailureMessage() {
+        return failureMessage;
+    }
 }
