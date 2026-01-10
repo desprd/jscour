@@ -1,5 +1,7 @@
 package com.github.desprd.jscour;
 
+import java.util.Optional;
+
 final class CharactersLimitRule extends ValidationRule{
 
     private final int limit;
@@ -10,8 +12,8 @@ final class CharactersLimitRule extends ValidationRule{
     }
 
     @Override
-    boolean isValid(String input) {
-        return input.length() <= limit;
+    boolean isValid(ValidationRuleContext context) {
+        return context.input().length() <= limit;
     }
 
 

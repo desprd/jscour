@@ -1,5 +1,7 @@
 package com.github.desprd.jscour;
 
+import java.util.Optional;
+
 final class BlockOffensiveWordsRule extends ValidationRule{
 
     BlockOffensiveWordsRule(ValidationFailureReason failureMessage) {
@@ -7,7 +9,7 @@ final class BlockOffensiveWordsRule extends ValidationRule{
     }
 
     @Override
-    boolean isValid(String input) {
+    boolean isValid(ValidationRuleContext context) {
         return true;
     }
 }

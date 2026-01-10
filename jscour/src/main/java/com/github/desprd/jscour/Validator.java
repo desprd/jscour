@@ -1,15 +1,12 @@
 package com.github.desprd.jscour;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Validates a single word against a configured list of validation rules.
  * <p>
- * This validator first performs basic input checks and fails fast:
- * {@code null} or blank input results in {@link ValidationFailureReason#EMPTY_INPUT},
- * and any input containing a white space results in
- * {@link ValidationFailureReason#NOT_A_SINGLE_WORD}.
+ * This validator first performs {@link InitialValidation#initValidate(String, ValidationMode, boolean)}
  * <p>
  * If the input passes the basic checks, rules are evaluated in the order they were added.
  * The first rule that fails determines the returned failure reason.
@@ -19,20 +16,19 @@ import java.util.Objects;
 public final class Validator{
 
     private final List<ValidationRule> rules;
+    private final ValidationMode validationMode;
+    private final boolean toCompute;
 
-    Validator(List<ValidationRule> rules) {
+    Validator(List<ValidationRule> rules, ValidationMode validationMode, boolean toCompute) {
         this.rules = List.copyOf(rules);
+        this.validationMode = validationMode;
+        this.toCompute = toCompute;
     }
 
     public ValidationResult validate(String word) {
-        if (Objects.isNull(word) || word.isBlank()) {
-            return ValidationResult.failure(word, ValidationFailureReason.EMPTY_INPUT);
-        }
-        if (word.chars().anyMatch(Character::isWhitespace)) {
-            return ValidationResult.failure(word, ValidationFailureReason.NOT_A_SINGLE_WORD);
-        }
+        Optional<int[]> existingCharactersArray = InitialValidation.initValidate(word, validationMode, toCompute);
         for (ValidationRule rule: rules) {
-            if (!rule.isValid(word)) {
+            if (!rule.isValid(new ValidationRuleContext(word, existingCharactersArray))) {
                 return ValidationResult.failure(word, rule.getFailureMessage());
             }
         }

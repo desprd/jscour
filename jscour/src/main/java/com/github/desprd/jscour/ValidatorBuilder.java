@@ -2,6 +2,7 @@ package com.github.desprd.jscour;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Builder for the {@code Validator} class. Provides methods for including
@@ -12,31 +13,66 @@ import java.util.List;
  * @author Ilja Kanstanczuk
  */
 
-public final class ValidatorBuilder {
+public final class ValidatorBuilder implements ValidationModeStep, ValidationRulesStep{
 
     private final List<ValidationRule> rules = new ArrayList<>();
+    private ValidationMode validationMode;
+    private boolean toCompute = false;
 
-    public static ValidatorBuilder builder() {
+    private ValidatorBuilder(){}
+
+    public static ValidationModeStep builder() {
         return new ValidatorBuilder();
     }
 
-    public ValidatorBuilder blockOffensiveWords() {
-        rules.add(new BlockOffensiveWordsRule(ValidationFailureReason.OFFENSIVE_WORD));
+    @Override
+    public ValidationRulesStep ascii128() {
+        validationMode = ValidationMode.ASCII128;
         return this;
     }
 
-    public ValidatorBuilder englishOnly() {
-        rules.add(new EnglishOnlyRule(ValidationFailureReason.NON_ENGLISH_CHARACTERS));
+    @Override
+    public ValidationRulesStep latin1() {
+        validationMode = ValidationMode.LATIN1;
         return this;
     }
 
-    public ValidatorBuilder charactersLimit(int limit) {
-        rules.add(new CharactersLimitRule(ValidationFailureReason.TOO_LONG, limit));
+    @Override
+    public ValidationRulesStep unicode() {
+        validationMode = ValidationMode.UNICODE;
         return this;
     }
 
+    @Override
+    public ValidationRulesStep blockOffensiveWords() {
+        rules.add(new BlockOffensiveWordsRule(
+                ValidationFailureReason.OFFENSIVE_WORD
+        ));
+        return this;
+    }
+
+    @Override
+    public ValidationRulesStep englishOnly() {
+        rules.add(new EnglishOnlyRule(
+                ValidationFailureReason.NON_ENGLISH_CHARACTERS
+        ));
+        toCompute = true;
+        return this;
+    }
+
+    @Override
+    public ValidationRulesStep charactersLimit(int limit) {
+        rules.add(new CharactersLimitRule(
+                ValidationFailureReason.TOO_LONG,
+                limit
+        ));
+        return this;
+    }
+
+    @Override
     public Validator build() {
-        return new Validator(rules);
+        Objects.requireNonNull(validationMode, "Validation mode must be selected");
+        return new Validator(rules, validationMode, toCompute);
     }
 
 }

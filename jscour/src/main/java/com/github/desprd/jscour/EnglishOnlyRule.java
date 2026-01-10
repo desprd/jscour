@@ -1,5 +1,7 @@
 package com.github.desprd.jscour;
 
+import java.util.Optional;
+
 final class EnglishOnlyRule extends ValidationRule{
 
     EnglishOnlyRule(ValidationFailureReason failureMessage) {
@@ -7,7 +9,7 @@ final class EnglishOnlyRule extends ValidationRule{
     }
 
     @Override
-    boolean isValid(String input) {
+    boolean isValid(ValidationRuleContext context) {
         return true;
     }
 }

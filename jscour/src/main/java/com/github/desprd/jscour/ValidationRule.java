@@ -1,5 +1,7 @@
 package com.github.desprd.jscour;
 
+import java.util.Optional;
+
 abstract class ValidationRule {
 
     private final ValidationFailureReason failureMessage;
@@ -8,7 +10,7 @@ abstract class ValidationRule {
         this.failureMessage = failureMessage;
     }
 
-    abstract boolean isValid(String input);
+    abstract boolean isValid(ValidationRuleContext context);
 
     ValidationFailureReason getFailureMessage() {
         return failureMessage;
