@@ -5,5 +5,6 @@ public enum ValidationFailureReason {
     TOO_LONG,
     NON_ENGLISH_CHARACTERS,
     OFFENSIVE_WORD,
-    NOT_A_SINGLE_WORD
+    NOT_A_SINGLE_WORD,
+    UNSUPPORTED_SYMBOL_ENCODING
 }

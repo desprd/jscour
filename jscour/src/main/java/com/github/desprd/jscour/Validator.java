@@ -26,7 +26,12 @@ public final class Validator{
     }
 
     public ValidationResult validate(String word) {
-        Optional<int[]> existingCharactersArray = InitialValidation.initValidate(word, validationMode, toCompute);
+        final Optional<int[]> existingCharactersArray;
+        try {
+            existingCharactersArray = InitialValidation.initValidate(word, validationMode, toCompute);
+        } catch (InitialValidationFailedException e) {
+            return ValidationResult.failure(word, e.failureReason);
+        }
         for (ValidationRule rule: rules) {
             if (!rule.isValid(new ValidationRuleContext(word, existingCharactersArray))) {
                 return ValidationResult.failure(word, rule.getFailureMessage());
