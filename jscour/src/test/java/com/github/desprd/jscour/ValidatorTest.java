@@ -118,12 +118,12 @@ class ValidatorTest {
     @Test
     void unpairSurrogateInInput_validate_returnUNSUPPORTED_SYMBOL_ENCODING() {
         // Given
-        Validator latin1Validator = ValidatorBuilder.builder()
+        Validator unicodeValidator = ValidatorBuilder.builder()
                                                     .unicode()
                                                     .build();
 
         // When
-        ValidationResult result = latin1Validator.validate("test\uD800test");
+        ValidationResult result = unicodeValidator.validate("test\uD800test");
 
         // Then
         assertEquals("test\uD800test", result.getOriginalWord());

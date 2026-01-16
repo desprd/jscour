@@ -30,7 +30,7 @@ public final class Validator{
         try {
             existingCharactersArray = InitialValidation.initValidate(word, validationMode, toCompute);
         } catch (InitialValidationFailedException e) {
-            return ValidationResult.failure(word, e.failureReason);
+            return ValidationResult.failure(word, e.getFailureReason());
         }
         for (ValidationRule rule: rules) {
             if (!rule.isValid(new ValidationRuleContext(word, existingCharactersArray))) {
