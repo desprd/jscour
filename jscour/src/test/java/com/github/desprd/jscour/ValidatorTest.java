@@ -130,4 +130,39 @@ class ValidatorTest {
         assertFalse(result.isValid());
         assertEquals(ValidationFailureReason.UNSUPPORTED_SYMBOL_ENCODING, result.getReason());
     }
+
+    @Test
+    void inputShorterThanLimit_charactersLimitRule_validate_returnSuccessfulValidationResult() {
+        // Given
+        Validator charactersLimitRuleValidator = ValidatorBuilder.builder()
+                                                                 .ascii128()
+                                                                 .charactersLimit(5)
+                                                                 .build();
+
+        // When
+        ValidationResult result = charactersLimitRuleValidator.validate("aaaa");
+
+        // Then
+        assertEquals("aaaa", result.getOriginalWord());
+        assertTrue(result.isValid());
+        assertNull(result.getReason());
+    }
+
+    @Test
+    void inputLongerThanLimit_charactersLimitRule_validate_returnFailedValidationResult() {
+        // Given
+        Validator charactersLimitRuleValidator = ValidatorBuilder.builder()
+                .ascii128()
+                .charactersLimit(5)
+                .build();
+
+        // When
+        ValidationResult result = charactersLimitRuleValidator.validate("aaaaaa");
+
+        // Then
+        assertEquals("aaaaaa", result.getOriginalWord());
+        assertFalse(result.isValid());
+        assertEquals(ValidationFailureReason.TOO_LONG, result.getReason());
+    }
+
 }
