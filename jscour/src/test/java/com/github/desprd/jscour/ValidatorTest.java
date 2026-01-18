@@ -165,4 +165,37 @@ class ValidatorTest {
         assertEquals(ValidationFailureReason.TOO_LONG, result.getReason());
     }
 
+    @Test
+    void englishLettersInput_englishOnlyRule_validate_returnSuccessfulValidationResult() {
+        // Given
+        Validator englishOnlyRuleValidator = ValidatorBuilder.builder()
+                                                             .ascii128()
+                                                             .englishOnly()
+                                                             .build();
+
+        // When
+        ValidationResult result = englishOnlyRuleValidator.validate("abc");
+
+        // Then
+        assertEquals("abc", result.getOriginalWord());
+        assertTrue(result.isValid());
+        assertNull(result.getReason());
+    }
+
+    @Test
+    void nonEnglishLettersInput_englishOnlyRule_validate_returnFailureValidationResult() {
+        // Given
+        Validator englishOnlyRuleValidator = ValidatorBuilder.builder()
+                .ascii128()
+                .englishOnly()
+                .build();
+
+        // When
+        ValidationResult result = englishOnlyRuleValidator.validate("abc1");
+
+        // Then
+        assertEquals("abc1", result.getOriginalWord());
+        assertFalse(result.isValid());
+        assertEquals(ValidationFailureReason.NON_ENGLISH_CHARACTERS, result.getReason());
+    }
 }
