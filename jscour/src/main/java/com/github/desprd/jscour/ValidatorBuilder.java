@@ -56,7 +56,6 @@ public final class ValidatorBuilder implements ValidationModeStep, ValidationRul
         rules.add(new EnglishOnlyRule(
                 ValidationFailureReason.NON_ENGLISH_CHARACTERS
         ));
-        toCompute = true;
         return this;
     }
 

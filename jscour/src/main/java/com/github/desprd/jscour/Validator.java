@@ -33,7 +33,7 @@ public final class Validator{
             return ValidationResult.failure(word, e.getFailureReason());
         }
         for (ValidationRule rule: rules) {
-            if (!rule.isValid(new ValidationRuleContext(word, existingCharactersArray))) {
+            if (!rule.isValid(new ValidationRuleContext(word, existingCharactersArray, validationMode))) {
                 return ValidationResult.failure(word, rule.getFailureMessage());
             }
         }

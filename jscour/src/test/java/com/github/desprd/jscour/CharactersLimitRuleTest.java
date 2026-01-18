@@ -22,7 +22,8 @@ public class CharactersLimitRuleTest {
         // Given
         ValidationRuleContext input = new ValidationRuleContext(
                 "aaaa",
-                Optional.empty()
+                Optional.empty(),
+                ValidationMode.ASCII128
         );
 
         // When
@@ -37,7 +38,8 @@ public class CharactersLimitRuleTest {
         // Given
         ValidationRuleContext input = new ValidationRuleContext(
                 "aaaaaa",
-                Optional.empty()
+                Optional.empty(),
+                ValidationMode.ASCII128
         );
 
         // When

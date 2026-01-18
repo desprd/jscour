@@ -152,9 +152,9 @@ class ValidatorTest {
     void inputLongerThanLimit_charactersLimitRule_validate_returnFailedValidationResult() {
         // Given
         Validator charactersLimitRuleValidator = ValidatorBuilder.builder()
-                .ascii128()
-                .charactersLimit(5)
-                .build();
+                                                                 .ascii128()
+                                                                 .charactersLimit(5)
+                                                                 .build();
 
         // When
         ValidationResult result = charactersLimitRuleValidator.validate("aaaaaa");
